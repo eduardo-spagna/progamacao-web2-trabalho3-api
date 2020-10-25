@@ -14,4 +14,16 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-Route.get('/', () => ({ greeting: 'Hello world in JSON' }));
+Route.get('/', () => ({ greeting: 'Trabalho 3 - Web 2 API' }));
+
+Route.group(() => {
+  /** ****************************************
+   * Users
+   ****************************************** */
+  Route.resource('users', 'UserController')
+    .apiOnly()
+    .only(['store', 'show', 'update']);
+  // .middleware(new Map([
+  //   [['show', 'update'], ['auth:jwt']],
+  // ]));
+}).prefix('api/v1');
