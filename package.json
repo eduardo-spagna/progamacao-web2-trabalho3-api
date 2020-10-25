@@ -7,7 +7,9 @@
   "scripts": {
     "start": "node server.js",
     "test": "node ace test",
-    "lint": "eslint --fix --ignore-path .gitignore ."
+    "lint": "eslint --fix --ignore-path .gitignore .",
+    "migration": "adonis migration:reset && adonis migration:run",
+    "production": "ENV_SILENT=true node ace migration:reset --force && ENV_SILENT=true node ace migration:run --force"
   },
   "husky": {
     "hooks": {
@@ -30,7 +32,10 @@
     "@adonisjs/framework": "^5.0.9",
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/lucid": "^6.1.3",
-    "pg": "^8.4.1"
+    "@google-cloud/storage": "^5.3.0",
+    "bl": "^4.0.3",
+    "pg": "^8.4.1",
+    "random-string": "^0.2.0"
   },
   "devDependencies": {
     "eslint": "^7.12.0",
