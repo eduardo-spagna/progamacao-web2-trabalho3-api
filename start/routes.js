@@ -26,4 +26,6 @@ Route.group(() => {
   // .middleware(new Map([
   //   [['show', 'update'], ['auth:jwt']],
   // ]));
+
+  Route.post('users/auth', 'UserController.userAuthentication');
 }).prefix('api/v1');
