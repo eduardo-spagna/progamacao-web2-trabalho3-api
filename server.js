@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 |--------------------------------------------------------------------------
 | Http server
@@ -17,9 +15,10 @@
 |     Make sure to pass a relative path from the project root.
 */
 
-const { Ignitor } = require('@adonisjs/ignitor')
+const { Ignitor } = require('@adonisjs/ignitor');
+const adonisFold = require('@adonisjs/fold');
 
-new Ignitor(require('@adonisjs/fold'))
+new Ignitor(adonisFold)
   .appRoot(__dirname)
   .fireHttpServer()
-  .catch(console.error)
+  .catch(console.error);
