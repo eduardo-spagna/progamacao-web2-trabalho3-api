@@ -9,6 +9,7 @@ const messages = {
   'user/data-type-string-email': 'O email do usuário deve ser uma string',
   'user/invalid-email': 'O email do usuário não é válido',
   'user/max-limit-email': 'O email do usuário deve conter até 90 caracteres',
+  'user/unique-email': 'Este email já está sendo utilizado',
   'user/required-password': 'A senha do usuário é obrigatória',
   'user/data-type-string-password': 'A senha do usuário deve ser uma string',
   'user/min-limit-password': 'A senha do usuário deve conter no mínimo 8 caracteres',
