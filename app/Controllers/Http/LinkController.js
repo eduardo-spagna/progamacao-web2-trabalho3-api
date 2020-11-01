@@ -84,6 +84,36 @@ class LinkController {
       return response.status(500).send(responseMessage);
     }
   }
+
+  async index({ auth, response }) {
+    const { data } = auth.jwtPayload;
+    const { user_id } = data;
+
+    try {
+      const links = await Link
+        .query()
+        .setHidden(['user_id'])
+        .where('user_id', user_id)
+        .fetch();
+
+      const queryLinksToJSON = links.toJSON();
+
+      const responseMessage = new DefaultResponseInterface({
+        code: 'link/successfully-searched-all-links',
+        message: LinkMessage.getMessage('link/successfully-searched-all-links'),
+        data: queryLinksToJSON,
+      });
+      return response.status(200).send(responseMessage);
+    } catch (error) {
+      console.log('Erro ao buscar os links do usuario', error);
+      const responseMessage = new DefaultResponseInterface({
+        code: 'link/error-searched-all-links',
+        message: LinkMessage.getMessage('link/error-searched-all-links'),
+        data: {},
+      });
+      return response.status(500).send(responseMessage);
+    }
+  }
 }
 
 module.exports = LinkController;
