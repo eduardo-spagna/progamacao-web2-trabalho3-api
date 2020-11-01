@@ -114,6 +114,42 @@ class LinkController {
       return response.status(500).send(responseMessage);
     }
   }
+
+  async show({ params, response }) {
+    const { id: link_shortened_tag } = params;
+
+    try {
+      const queryLink = await Link.findBy('link_shortened_tag', link_shortened_tag);
+
+      if (queryLink === null) {
+        const responseMessage = new DefaultResponseInterface({
+          code: 'link/not-found',
+          message: LinkMessage.getMessage('link/not-found'),
+          data: {},
+        });
+        return response.status(404).send(responseMessage);
+      }
+
+      const queryLinkToJSON = queryLink.toJSON();
+
+      const responseMessage = new DefaultResponseInterface({
+        code: 'link/successfully-searched-one-link',
+        message: LinkMessage.getMessage('link/successfully-searched-one-link'),
+        data: {
+          link_original: queryLinkToJSON.link_original,
+        },
+      });
+      return response.status(200).send(responseMessage);
+    } catch (error) {
+      console.log('Erro ao buscar o link original', error);
+      const responseMessage = new DefaultResponseInterface({
+        code: 'link/error-searched-one-link',
+        message: LinkMessage.getMessage('link/error-searched-one-link'),
+        data: {},
+      });
+      return response.status(500).send(responseMessage);
+    }
+  }
 }
 
 module.exports = LinkController;
