@@ -2,10 +2,6 @@
 const Model = use('Model');
 
 class User extends Model {
-  tokens() {
-    return this.hasMany('App/Models/Token');
-  }
-
   static get primaryKey() {
     return 'user_id';
   }
