@@ -85,15 +85,17 @@ class LinkController {
     }
   }
 
-  async index({ auth, response }) {
+  async index({ auth, request, response }) {
     const { data } = auth.jwtPayload;
     const { user_id } = data;
+
+    const search = request.input('search') || '';
 
     try {
       const links = await Link
         .query()
         .setHidden(['user_id'])
-        .where('user_id', user_id)
+        .whereRaw('user_id = ? AND (link_original ILIKE ? OR link_shortened ILIKE ?)', [+user_id, `%${search}%`, `%${search}%`])
         .fetch();
 
       const queryLinksToJSON = links.toJSON();
