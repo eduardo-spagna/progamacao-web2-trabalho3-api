@@ -132,14 +132,7 @@ class LinkController {
 
       const queryLinkToJSON = queryLink.toJSON();
 
-      const responseMessage = new DefaultResponseInterface({
-        code: 'link/successfully-searched-one-link',
-        message: LinkMessage.getMessage('link/successfully-searched-one-link'),
-        data: {
-          link_original: queryLinkToJSON.link_original,
-        },
-      });
-      return response.status(200).send(responseMessage);
+      return response.redirect(queryLinkToJSON.link_original, false, 301);
     } catch (error) {
       console.log('Erro ao buscar o link original', error);
       const responseMessage = new DefaultResponseInterface({
